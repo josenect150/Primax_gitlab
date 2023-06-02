@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * The .module file.
+ */
+
+use Drupal\google_tag\Entity\Container;
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Core_150_img_to_webp.
+ */
+function co_150_core_img_to_webp($file_relative_url, $compression_quality = 80) {
+  return _co_150_core_img_to_webp($file_relative_url, $compression_quality);
+}
+
+/**
+ * Img_to_webp.
+ */
+function _co_150_core_img_to_webp($file_relative_url, $compression_quality = 80) {
+  $file_relative_url = urldecode($file_relative_url);
+  $file = DRUPAL_ROOT . $file_relative_url;
+  if (!file_exists($file)) {
+    Drupal::logger('Img to WebP')->error('Imagen no existe: <pre>' . print_r($file_relative_url, TRUE));
+    return $file_relative_url;
+  }
+  $relative_output_file = $file_relative_url . '.webp';
+  $root_output_file = DRUPAL_ROOT . $relative_output_file;
+  if (file_exists($root_output_file)) {
+    if (is_readable($root_output_file)) {
+      return $relative_output_file;
+    }
+    else {
+      Drupal::logger('Img to WebP')->error('Imagen no es legible: <pre>' . print_r($root_output_file, TRUE));
+    }
+  }
+
+  $file_info = getimagesize($file);
+  $file_type = false;
+  if($file_info) {
+    $file_type = $file_info[2];
+  }
+  if (function_exists('imagewebp')) {
+    switch ($file_type) {
+      case IMAGETYPE_GIF:
+        $image = imagecreatefromgif($file);
+        break;
+
+      case IMAGETYPE_JPEG:
+        $image = imagecreatefromjpeg($file);
+        break;
+
+      case IMAGETYPE_PNG:
+        $image = imagecreatefrompng($file);
+        imagepalettetotruecolor($image);
+        imagealphablending($image, TRUE);
+        imagesavealpha($image, TRUE);
+        break;
+
+      case IMAGETYPE_BMP:
+        $image = imagecreatefrombmp($file);
+        break;
+
+      case IMAGETYPE_WEBP:
+        return $file_relative_url;
+
+      case IMAGETYPE_XBM:
+        $image = imagecreatefromxbm($file);
+        break;
+
+      default:
+        return $file_relative_url;
+    }
+    // Save the image.
+    try {
+      $result = imagewebp($image, $root_output_file, $compression_quality);
+      if (!$result) {
+        return $file_relative_url;
+      }
+    }
+    catch (Exception $exception) {
+      Drupal::logger('Img to WebP')->error('Fallo en la creación: <pre>' . print_r($exception, TRUE));
+    }
+    // Free up memory.
+    imagedestroy($image);
+    return $relative_output_file;
+  }
+  elseif (class_exists('Imagick')) {
+    $image = new Imagick();
+    $image->readImage($file);
+    if ($file_type === IMAGETYPE_PNG) {
+      $image->setImageFormat('webp');
+      $image->setImageCompressionQuality($compression_quality);
+      $image->setOption('webp:lossless', 'true');
+    }
+    $image->writeImage($root_output_file);
+    return $relative_output_file;
+  }
+
+  Drupal::logger('Img to WebP')->error('No hay soporte WebP');
+  return $file_relative_url;
+}
+
+/**
+ * Implemtents hook_google_tag_snippets_alter().
+ */
+function co_150_core_google_tag_snippets_alter(array &$snippets, Container $container) {
+  $snippets['script'] = 'if (navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {' . $snippets['script'] . '}';
+}
+
+/**
+ * Str_contains.
+ */
+function co_150_core_str_contains($haystack, $needle): bool {
+  return $needle !== '' && mb_strpos($haystack, $needle) !== FALSE;
+}

@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+@mixin mq($media: mob, $type: max){
+	@if type-of($media) == number {
+		@if unitless($media) {
+			@media only screen and (#{$type}-width: $media + px){
+				@content;
+			}
+		}
+	} @else {
+		@if type-of(map-get($mediaqueries, $media)) == number {
+			@media only screen and (#{$type}-width: map-get($mediaqueries, $media) + px){
+				@content;
+			}
+		} @else if type-of(map-get($mediaqueries, $media)) == string {
+			@media #{map-get($mediaqueries, $media)}{
+				@content;
+			}
+		}
+	}
+}
+
+@mixin flex( $option: false, $jc: center, $ai: center, $ac: center, $fw: wrap, $d: flex, $fd: row ) {
+	display: $d;
+	flex-flow: $fd $fw;
+	@if $option == centerY {
+		justify-content: flex-start;
+		align-items: center;
+	} @else if $option == centerX {
+		justify-content: center;
+		align-items: flex-start;
+	} @else if $option == noCenter {
+		justify-content: flex-start;
+		align-items: flex-start;
+	} @else {
+		justify-content: $jc;
+		align-items: $ai;
+	}
+}
+
+@mixin set-position($top: auto, $bottom: auto, $left: auto, $right: auto, $position: absolute) {
+	top: $top;
+	bottom: $bottom;
+	left: $left;
+	right: $right;
+	position: $position;
+}

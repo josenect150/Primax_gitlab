@@ -1,0 +1,8 @@
+services:
+  co_150_core.twig_extension:
+    class: Drupal\co_150_core\Twig\Img150Webp
+    tags:
+      - { name: twig.extension }
+  co_150_core.url_service:
+    class: Drupal\Core\Url
+    arguments: ['route:<noroute>']

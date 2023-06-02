@@ -1,0 +1,6 @@
+name: Whatsapp Cloud Api 150%
+type: module
+description: Modulo controlador para bots de whatsapp realizado por 150%
+package: 150%
+core: 8.x
+core_version_requirement: ^8 || ^9

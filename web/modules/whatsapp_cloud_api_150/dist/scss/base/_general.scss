@@ -1,0 +1,77 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style-type: none !important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+img.auto-height {
+  height: auto;
+}
+
+input {
+  max-width: 100%;
+}
+
+// OVERRIDE STYLES
+header#header,
+footer,
+.social-bar {
+  display: none;
+}
+
+#block-olivero-content{
+  grid-column: 2 / 14;
+}
+
+.page-wrapper {
+  margin: auto;
+
+  #main .main-content {
+    width: 100%;
+
+    & > div {
+      padding: 3rem 0 4rem;
+
+      @media (min-width: 1367px) {
+        padding: 5rem 0;
+      }
+    }
+  }
+
+  .main-content__container.container {
+    max-width: 100%;
+  }
+
+  #content {
+    margin: 0;
+    #block-olivero-content {
+      margin: 0;
+    }
+  }
+}

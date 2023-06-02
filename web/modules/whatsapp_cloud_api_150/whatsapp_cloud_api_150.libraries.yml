@@ -1,0 +1,17 @@
+drawflow:
+  css:
+    theme:
+      https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css: {}
+      css/editor.css: {}
+  js:
+    https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js: {}
+    js/editor.js: {}
+
+chatbot:
+  css:
+    theme:
+      dist/css/main.css: {}
+  js:
+    dist/js/partials/chat.js: { attributes: { defer: true } }
+    dist/js/partials/message.js: { attributes: { defer: true } }
+    dist/js/pages/chatbot/main.js: { attributes: { defer: true } }

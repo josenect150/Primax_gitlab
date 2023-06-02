@@ -1,0 +1,79 @@
+co_150_core.admin:
+  path: '/admin/config/150porciento'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '150 Porciento'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+co_150_core.admin_users:
+  path: '/admin/table-custom/{table}'
+  defaults:
+   _controller: '\Drupal\co_150_core\Controller\TableCustom::index'
+   _title: 'Tabla de Registros'
+  requirements:
+    _access: 'TRUE'
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+
+co_150_core.admin_users.delete:
+  path: '/admin/table-custom/{table}/delete/{id}'
+  defaults:
+   _controller: '\Drupal\co_150_core\Controller\TableCustom::delete'
+   _title: 'Tabla de Registros'
+  requirements:
+    _access: 'TRUE'
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+
+co_150_core.admin_users.edit:
+  path: '/admin/table-custom/{table}/edit/{id}'
+  method: 'POST'
+  defaults:
+   _controller: '\Drupal\co_150_core\Controller\TableCustom::edit'
+   _title: 'Tabla de Registros'
+  requirements:
+    _access: 'TRUE'
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+
+co_150_core.admin_users.export:
+  path: '/admin/table-custom/{table}/export'
+  defaults:
+   _controller: '\Drupal\co_150_core\Controller\ReportController::export'
+   _title: 'Tabla de Registros'
+  requirements:
+    _access: 'TRUE'
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+
+co_150_core.generate.user:
+  path: '/150porciento/gen-user-a'
+  defaults:
+    _controller: '\Drupal\co_150_core\Controller\UserController::createUser'
+    _title: 'Generate User'
+  requirements:
+    _permission: 'access content'
+
+co_150_core.user.checklogin:
+  method: 'POST'
+  path: '/150porciento/user/check/user'
+  defaults:
+    _controller: '\Drupal\co_150_core\Controller\UserController::verifyUser'
+    _title: 'Verificar si el usuario ya realizo la trivia'
+  requirements:
+    _permission: 'access content'
+
+co_150_core.send_cms:
+  path: '/admin/config/system/send-cms'
+  defaults:
+    _title: 'Send SMS'
+    _form: 'Drupal\co_150_core\Form\SendSmsForm'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,10 @@
+@use "../../abstracts" as abs;
+
+@use "chat-list";
+@use "chat-user";
+
+.#{abs.$var-prefix}-chatbot {
+    display: grid;
+    gap: 15px 50px;
+    grid-template-columns: 300px 1fr;
+}

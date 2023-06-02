@@ -1,0 +1,19 @@
+@use "../abstracts" as abs;
+
+$containerOptions: x padding-left padding-right, y padding-top padding-bottom;
+
+.#{abs.$var-prefix}-container {
+  @extend %container;
+
+  @each $axis, $padding1, $padding2 in $containerOptions {
+    &-#{$axis} {
+      #{$padding1}: abs.$var-generalPaddingMob;
+      #{$padding2}: abs.$var-generalPaddingMob;
+  
+      @media (min-width: 768px) {
+        #{$padding1}: abs.$var-generalPaddingDesk;
+        #{$padding2}: abs.$var-generalPaddingDesk;
+      }
+    }
+  }
+}

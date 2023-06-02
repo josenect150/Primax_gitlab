@@ -1,0 +1,5 @@
+name: Modulo 150 Core
+type: module
+description: 'Modulo de funcionalidad'
+package: 150%
+core_version_requirement: ^8 || ^9

@@ -1,0 +1,271 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Whatsapp Cloud Api 150% module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function whatsapp_cloud_api_150_install() {
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function whatsapp_cloud_api_150_uninstall() {
+}
+
+/**
+ * Implements hook_schema().
+ */
+function whatsapp_cloud_api_150_schema() {
+  $schema['whatsapp_cloud_api_150_messages'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'type' => [
+        'type' => 'varchar', // * msg * reply_button * audio
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'identification' => [
+        'type' => 'varchar', // step identification
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'msg' => [
+        'type' => 'text',
+        'null' => TRUE,
+      ],
+
+      'button_1_id' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_1_msg' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_1_to_step' => [
+        // Si selecciona este botón, a qué paso se dirigira?
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_2_id' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_2_msg' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_2_to_step' => [
+        // Si selecciona este botón, a qué paso se dirigira?
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_3_id' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_3_msg' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'button_3_to_step' => [
+        // Si selecciona este botón, a qué paso se dirigira?
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+
+      'response_type' => [
+        // Espera la respuesta de un mensaje (msg) o de un botón (reply_button)
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'to_step' => [
+        // A cuál paso se dirige (identification) en caso de esperar una respuesta por mensaje?
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+
+      'check_msg_regex' => [
+        'type' => 'varchar', // Si es de un mensaje, se espera una expersión regular especifica?
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'check_unique_data' => [ // True or False
+        'type' => 'varchar', // Si es de un mensaje, se espera qué la información sea única?
+        'length' => 1,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'check_unique_data_table' => [
+        'type' => 'varchar', // Si es única, de qué tabla?
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'check_unique_data_column' => [
+        'type' => 'varchar', // Si es única, de qué columna?
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'list_open_message' => [
+        'type' => 'varchar', // Si es única, de qué columna?
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'identification' => ['identification'],
+    ],
+  ];
+  for ($i = 1; $i <= 10; $i++) {
+    $schema['whatsapp_cloud_api_150_messages']['fields']['list_' . $i . '_id'] = [
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => TRUE,
+      'default' => '',
+    ];
+    $schema['whatsapp_cloud_api_150_messages']['fields']['list_' . $i . '_msg'] = [
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => TRUE,
+      'default' => '',
+    ];
+    $schema['whatsapp_cloud_api_150_messages']['fields']['list_' . $i . '_desc'] = [
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => TRUE,
+      'default' => '',
+    ];
+    $schema['whatsapp_cloud_api_150_messages']['fields']['list_' . $i . '_to_step'] = [
+      // Si selecciona este botón, a qué paso se dirigira?
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => TRUE,
+      'default' => '',
+    ];
+  }
+  $schema['whatsapp_cloud_api_150_messages']['fields']['created_at'] = [
+    'mysql_type' => 'timestamp NULL DEFAULT NULL',
+  ];
+  $schema['whatsapp_cloud_api_150_messages']['fields']['updated_at'] = [
+    'mysql_type' => 'timestamp NULL DEFAULT NULL',
+  ];
+
+  $schema['whatsapp_cloud_api_150_conversations'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'conversation_id' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ],
+      'conversation_step' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => 'initial',
+      ],
+      'conversation_last_step' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => 'initial',
+      ],
+      'conversation_last_timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'conversation_id' => ['conversation_id'],
+    ],
+  ];
+  $schema['whatsapp_cloud_api_150_history'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'waid' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ],
+      'type' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ],
+      'message' => [
+        'type' => 'text',
+        'null' => TRUE,
+      ],
+      'message_id' => [
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ],
+      'message_timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'waid' => ['waid'],
+    ],
+  ];
+  return $schema;
+}

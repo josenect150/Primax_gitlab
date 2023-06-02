@@ -1,0 +1,34 @@
+{{ attach_library('whatsapp_cloud_api_150/chatbot') }}
+
+<main class="prmx-chatbot">
+	<header class="prmx-chat-header prmx-chat-header--disabled">
+		<button id="closeChat" class="prmx-chat-header__button prmx-button">Cerrar</button>
+	</header>
+	<aside class="prmx-chat-list">
+		<ul class="prmx-chat-list__wrapper"></ul>
+	</aside>
+	<section class="prmx-chat-user prmx-chat-user--disabled">
+		<div class="prmx-chat-user__container">
+			<p class="prmx-chat-user__empty">No hay mensajes para mostrar</p>
+			<div class="prmx-chat-user__messages">
+			    <div class="prmx-chat-user__messages-wrapper">
+                    <span class="prmx-chat-user__dispatch-prev"></span>
+                    <div id="messagesList"></div>
+                </div>
+            </div>
+			<fieldset id="fieldMessage" class="prmx-chat-user__actions prmx-chat-user__actions--disabled">
+				<input class="prmx-chat-user__input" type="text" name="message" id="message" placeholder="Mensaje" autocomplete="off">
+				<button class="prmx-chat-user__button" id="messageSubmit"></button>
+			</fieldset>
+		</div>
+	</section>
+</main>
+
+<div style="display: none;">
+	Icons made by
+	<a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">
+		Pixel perfect
+	</a>
+	from
+	<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a>
+</div>

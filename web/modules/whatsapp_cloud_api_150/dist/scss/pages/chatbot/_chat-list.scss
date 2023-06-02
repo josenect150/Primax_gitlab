@@ -1,0 +1,61 @@
+@use "../../abstracts" as abs;
+
+.#{abs.$var-prefix}-chat-list {
+    background-color: #D4F1F4;
+    border-radius: 20px;
+    overflow: auto;
+    padding: 20px;
+
+    grid-area: 2/1/span 1/span 1;
+
+    @extend %custom-scroll-bar;
+    height: 58vh;
+    
+    @include abs.mix-mq(desk,min) {
+        height: 65vh;
+    }
+
+}
+
+.#{abs.$var-prefix}-chat-card {
+    cursor: pointer;
+
+    background: white;
+    border-radius: 20px;
+    display: grid;
+    gap: 0 15px;
+    grid-template-columns: 50px 1fr;
+    margin-bottom: 5px;
+    padding: 10px;
+
+    &--active {
+        background-color: #05445E;
+    }
+
+    &--active &__date,
+    &--active &__name {
+        color: white;
+    }
+
+    &__avatar {
+        background-color: transparent;
+        grid-area: 1 / 1 / span 2 / span 1;
+        
+        img {
+            background: rebeccapurple;
+            border-radius: 50%;
+        }
+    }
+
+    &__name {
+        color: #05445E;
+        grid-area: 1 / 2 / span 1 / span 1;
+    }
+    
+    &__date {
+        color: #05445E;
+        grid-area: 2 / 2 / span 1 / span 1;
+
+        font-size: 12px
+    }
+}

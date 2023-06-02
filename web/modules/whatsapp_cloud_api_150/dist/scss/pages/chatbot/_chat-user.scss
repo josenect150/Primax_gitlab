@@ -1,0 +1,177 @@
+@use "../../abstracts" as abs;
+
+%dispatcher {
+    pointer-events: none;
+    height: 50px;
+    width: 100%;
+}
+
+#messagesList {
+    @include abs.mix-flex($fw:nowrap, $fd:column);
+}
+
+.#{abs.$var-prefix}-chat-header {
+    grid-area: 1 / 2 / span 1 / span 1;
+
+    gap: 50px;
+    @include abs.mix-flex($fw:nowrap);
+
+    &--disabled {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &__button {
+        background: crimson;
+        color: white;
+        font-weight: 600;
+        margin-left: auto;
+    }
+
+    &__name {
+        flex: 1;
+    }
+}
+
+.#{abs.$var-prefix}-chat-user {
+    grid-area: 2/2/span 1/span 1;
+
+    &__container {
+        background-color: #D4F1F4;
+        border-radius: 20px;
+        padding: 20px;
+        position: relative;
+
+        height: 58vh;
+        
+        @include abs.mix-mq(desk,min) {
+            height: 65vh;
+        }
+    }
+
+    &__empty {
+        color: #05445E;
+        margin: auto;
+        opacity: 0;
+        pointer-events: none;
+        text-align: center;
+        @include abs.mix-flex;
+        @include abs.mix-set-position($top:0,$left:0,$right:0,$bottom:0);
+    }
+    
+    &--disabled &__empty { 
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &__messages {
+        height: calc(100% - 74px);
+        overflow: auto;
+        @extend %custom-scroll-bar;
+        
+        &-wrapper {
+            position: relative;
+        }
+    }
+
+    &--disabled &__messages {
+        display: none;
+    }
+
+    &__dispatch-prev {
+        @extend %dispatcher;
+        @include abs.mix-set-position($top:0, $left:0, $right:0);
+    }
+    
+    &__dispatch-next {
+        @extend %dispatcher;
+        @include abs.mix-set-position($bottom:0, $left:0, $right:0);
+    }
+
+    &__actions {
+        gap: 0 15px;
+        padding: 0;
+        @include abs.mix-flex($fw:nowrap);
+        @include abs.mix-set-position($bottom: 20px, $left: 20px, $right: 20px);
+    }
+
+    &--disabled &__actions {
+        display: none;
+    }
+
+    & &__input {
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        margin: 0 auto;
+        width: 100%;
+
+        &:focus {
+            border-width: 1px;
+            outline-width: 2px;
+            outline-offset: -1px;
+        }
+    }
+
+    & &__button {
+        cursor: pointer;
+
+        background: url(#{abs.$var-imagePath}/icons/paper-plane.png) #007b80 center left 12px/25px no-repeat;
+        border-radius: 50%;
+        display: block;
+
+        min-width: 50px;
+        height: 50px;
+        width: 50px;
+    }
+}
+
+.#{abs.$var-prefix}-message {
+    margin: 5px 0;
+    max-width: 75%;
+    padding: 15px 15px 40px;
+    position: relative;
+
+    min-width: 160px;
+
+    &--chatbot {
+        background-color: #189AB4;
+        border-radius: 25px 0 25px 25px;
+        margin-right: 0;
+        margin-left: auto;
+    }
+
+    &--user {
+        background-color: #05445E;
+        border-radius: 0 25px 25px 25px;
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    &__date {
+        color: #FFF;
+        font-size: 12px;
+        line-height: 1em;
+    }
+
+    &--chatbot &__date {
+        @include abs.mix-set-position($bottom: 15px, $right: 20px);
+    }
+    
+    &--user &__date {
+        @include abs.mix-set-position($bottom: 15px, $left: 20px);
+    }
+
+    &__content {
+        color: #FFF;
+        line-height: 1.5em;
+        font-size: 14px;
+    }
+}
+
+#newMessages {
+    background: #f51313a1;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 20px;   
+}

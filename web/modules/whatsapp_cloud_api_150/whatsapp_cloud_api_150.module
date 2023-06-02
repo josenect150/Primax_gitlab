@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Whatsapp Cloud Api 150% module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+
+ function whatsapp_cloud_api_150_theme($existing, $type, $theme, $path)
+{
+  $templates = ['conversationAgent'];
+  foreach ($templates as $key => $value) {
+    $request[$value] = ['variables' => ['data' => null]];
+  }
+  return $request;
+
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function whatsapp_cloud_api_150_page_attachments(array &$page) {
+  $path = \Drupal::service('extension.list.module')->getPath('whatsapp_cloud_api_150') . '/dist/img/icons/user.png';
+  $page['#attached']['drupalSettings']['core_whatsapp'] = file_create_url($path);;
+}

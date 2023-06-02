@@ -1,0 +1,69 @@
+@use './variables' as var;
+
+%container {
+    padding: var.$generalPaddingMob;
+
+    @media (min-width: 768px) {
+        padding: var.$generalPaddingDesk;
+    }
+}
+
+%container-max-limit {
+    margin: 0 auto;
+    max-width: 1920px;
+    width: 100%;
+}
+
+%container-limit {
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 100%;
+}
+
+%container-min-limit {
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 100%;
+}
+
+%hidden {
+    display: none;
+}
+
+%custom-select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+}
+
+%custom-scroll-bar {
+    /* width */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    /* button */
+    &::-webkit-scrollbar-button {
+        background: #22222200; 
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #33333356; 
+        border-radius: 20px;
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #666; 
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #ffffff20; 
+    }
+    /* Corner */
+    &::-webkit-scrollbar-corner {
+        background: #999; 
+    }
+    /* Resizer */
+    &::-webkit-resizer {
+        background: #111; 
+    }
+}

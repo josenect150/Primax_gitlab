@@ -1,0 +1,85 @@
+whatsapp_cloud_api_150.verifyToken:
+  path: '/whats150/whatsapp'
+  methods: [GET]
+  defaults:
+    _title: 'Verificar Token del Webhook'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\WhatsappCloudApi150Controller::verifyToken'
+  requirements:
+    _permission: 'access content'
+
+whatsapp_cloud_api_150.processWebhook:
+  path: '/whats150/whatsapp'
+  methods: [POST]
+  defaults:
+    _title: 'Procesar mensajes'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\WhatsappCloudApi150Controller::processWebhook'
+  requirements:
+    _permission: 'access content'
+
+whatsapp_cloud_api_150.saveFlowData:
+  path: '/whats150/save/flow'
+  methods: [POST]
+  defaults:
+    _title: 'Guardar el paso a paso'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\WhatsappCloudApi150Controller::saveFlow'
+  requirements:
+    _permission: 'access content'
+
+whatsapp_cloud_api_150.settings_form:
+  path: '/admin/config/system/whatsapp-cloud-api-150'
+  defaults:
+    _title: 'Whatsapp Cloud Api 150% settings'
+    _form: 'Drupal\whatsapp_cloud_api_150\Form\SettingsForm'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
+
+whatsapp_cloud_api_150.flow_form:
+  path: '/admin/config/system/flow'
+  defaults:
+    _title: 'Whatsapp Cloud Flow'
+    _form: 'Drupal\whatsapp_cloud_api_150\Form\CreateFlowForm'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
+
+whatsapp_cloud_api_150.advises.data:
+  path: '/conversation/advises/data'
+  defaults:
+    _title: 'Whatsapp Asesor Cloud Flow'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\AdvisesWhatsappCloudApi150Controller::usersForAdvises'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
+
+whatsapp_cloud_api_150.advises.data.message:
+  path: '/conversation/advises/data/message'
+  defaults:
+    _title: 'Whatsapp Asesor Cloud Flow'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\AdvisesWhatsappCloudApi150Controller::dataMessageUserPhone'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
+
+whatsapp_cloud_api_150.advises.data.message.send:
+  methods: [POST]
+  path: '/conversation/advises/data/message/send'
+  defaults:
+    _title: 'Whatsapp Asesor Cloud Flow'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\AdvisesWhatsappCloudApi150Controller::sendMessageToWhatsapp'
+  requirements:
+    _permission: 'access content'
+
+whatsapp_cloud_api_150.advises.data.message.closed:
+  methods: [GET]
+  path: '/conversation/advises/closed'
+  defaults:
+    _title: 'Whatsapp Asesor Cloud Flow'
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\AdvisesWhatsappCloudApi150Controller::closedConcversationAdvise'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
+
+whatsapp_cloud_api_150.advises.message:
+  methods: [GET]
+  path: '/conversation/advises'
+  defaults:
+    _title: 'Whatsapp Asesor '
+    _controller: '\Drupal\whatsapp_cloud_api_150\Controller\AdvisesWhatsappCloudApi150Controller::pageAdvise'
+  requirements:
+    _permission: 'administer whatsapp_cloud_api_150 configuration'
